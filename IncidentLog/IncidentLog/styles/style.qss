@@ -1,0 +1,47 @@
+QWidget {
+    background-color: rgb(48, 125, 212);
+    font-family: 'Tahoma';
+}
+
+QWidget[fontsize="small"] {
+    font-size: 12pt;
+}
+
+QWidget[fontsize="medium"] {
+    font-size: 16pt;
+}
+
+QWidget[fontsize="large"] {
+    font-size: 32pt;
+}
+
+QWidget[weight="bold"] {
+    font-weight: bold;
+}
+
+QWidget::item:selected {
+    background-color: rgb(143, 191, 230);
+    color: #000;
+    font-weight: bold;
+    border-radius: 2px;
+}
+
+QWidget::item:hover{
+    background-color: rgb(94, 164, 221);
+    color: #000;
+    border: 1px solid #cccccc;
+    font-weight: bold;
+    border-radius: 2px;
+}
+
+QToolTip {
+    background-color: rgb(180, 180, 180); 
+    color: rgb(50, 50, 50); 
+    font-weight: bold;
+}
+
+QLabel {
+    background-color: rgba(0,0,0,0);
+    color: black;
+}
+

@@ -1,0 +1,3 @@
+#clockButton {
+    background-color: rgb(0, 120, 0);
+}
