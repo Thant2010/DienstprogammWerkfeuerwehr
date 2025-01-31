@@ -18,7 +18,6 @@ class InputTimeRow(QHBoxLayout):
         self.addWidget(self.__inputTimeWidget)
 
 
-    def getValue(self):
-        print(self.__inputTimeWidget.getCurrentValue())
-        print(self.__inputTimeWidget.getCurrenTime())
-        print(self.__inputTimeWidget.getCurrenDate())
+    def getValue(self) -> str:
+
+        return self.__inputTimeWidget.getCurrentValue()

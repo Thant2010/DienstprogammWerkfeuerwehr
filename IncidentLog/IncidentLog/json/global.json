@@ -1,1 +1,46 @@
-{"categorys": ["Lagemeldung","Maßnahme", "Nachforderung", "Einheiten", "Ereignis"]}
+{
+  "categorys": [
+    "Lagemeldung",
+    "Maßnahme",
+    "Anforderung",
+    "Einheiten",
+    "Ereignis"
+  ],
+  "reportSender": [
+    "C-Dienst",
+    "B-Dienst",
+    "A-Dienst",
+    "Angriffstrupp",
+    "Wassertrupp",
+    "Schlauchtrupp",
+    "Melder",
+    "Maschinist",
+    "First Responder",
+    "1/55",
+    "1/48",
+    "1/29",
+    "1/83",
+    "1/61",
+    "1/18",
+    "1/10",
+    "Mot-Streife"
+  ],
+  "iconButtons": {
+    "save": [
+      "icons/save.svg",
+      "Daten Speichern"
+    ],
+    "clear": [
+      "icons/clear.svg",
+      "Eingabe leeren"
+    ],
+    "quit": [
+      "icons/quit.png",
+      "Beenden"
+    ],
+    "close": [
+      "icons/close.svg",
+      "Schließen"
+    ]
+  }
+}

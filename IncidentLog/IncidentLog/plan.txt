@@ -14,3 +14,4 @@ LfdNr	Zeitpunkt	Absender	Kategorie	Text
 							Ereignis
 
 https://icon-icons.com/pack/Interface-Iconset/788
+https://icon-icons.com/pack/Mobile-Basic-Vol.-1/1993
