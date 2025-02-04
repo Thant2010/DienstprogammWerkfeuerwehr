@@ -34,13 +34,56 @@
       "icons/clear.svg",
       "Eingabe leeren"
     ],
-    "quit": [
-      "icons/quit.png",
-      "Beenden"
+    "edit": [
+      "icons/edit.svg",
+      "Bearbeiten"
+    ],
+    "add": [
+      "icons/add.svg",
+      "Hinzüfugen"
+    ],
+    "remove": [
+      "icons/remove.svg",
+      "Eetfernen"
     ],
     "close": [
       "icons/close.svg",
       "Schließen"
     ]
-  }
+  },
+  "reportLetter": [
+    "A",
+    "B",
+    "I",
+    "R",
+    "K",
+    "DH",
+    "EXT"
+  ],
+  "alarmCategory": [
+    "First Responder",
+    "Krankentransport",
+    "Auslösung BMA",
+    "Brand A",
+    "Brand B",
+    "Mittelbrand",
+    "Großbrand",
+    "Gefahrstoff-Einsatz",
+    "Öleinsatz",
+    "Technischer Einsatz",
+    "Sonstiger Einsatz",
+    "Einsatz mit Tieren",
+    "Hubschrauber",
+    "Unterstützung Dillinger",
+    "Dillinger im Haus",
+    "Ext. FW im Haus",
+    "Ext. RD im Haus"
+  ],
+  "logTableHeader": [
+    "Lfd.Nr.",
+    "Zeitpunkt",
+    "Absender",
+    "Kategorie",
+    "Text"
+  ]
 }

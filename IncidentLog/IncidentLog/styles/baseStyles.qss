@@ -1,0 +1,67 @@
+QWidget {
+   background-color: white;
+    background: qlineargradient(
+        x1: 0, y1: 0,
+        x2: 1, y2: 1,
+        stop: 0 $backgroundColor1,  
+        stop: 0.5 $backgroundColor2,
+        stop: 1 $backgroundColor1   
+    );
+    font-family: 'Tahoma';
+}
+
+QWidget[teststyle="test"] {
+    background-color: red;
+}
+
+QWidget[fontsize="small"] {
+    font-size: 12pt;
+}
+
+QWidget[fontsize="medium"] {
+    font-size: 16pt;
+}
+
+QWidget[fontsize="large"] {
+    font-size: 32pt;
+}
+
+QWidget[weight="bold"] {
+    font-weight: bold;
+}
+
+QWidget::item:selected {
+    background-color: $lightPrimaryColor;
+    color: #000;
+    font-weight: bold;
+    border-radius: 2px;
+}
+
+QWidget::item:hover{
+    background-color: $primaryColor;
+    color: #000;
+    border: 1px solid #cccccc;
+    font-weight: bold;
+    border-radius: 2px;
+}
+
+QToolTip {
+    background-color: rgb(180, 180, 180); 
+    color: rgb(50, 50, 50); 
+    font-weight: bold;
+}
+
+QLabel {
+    background-color: rgba(0,0,0,0);
+    color: black;
+}
+
+QTextEdit,
+QLineEdit {
+    background-color: rgb(200,200,200);
+    color: black;
+    border: 1px solid black;
+    border-radius: 3px;
+
+}
+

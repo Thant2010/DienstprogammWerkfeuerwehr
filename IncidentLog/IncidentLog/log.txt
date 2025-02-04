@@ -1,11 +1,11 @@
---> 30.01.2025 21:54
+--> 03.02.2025 18:36
 --> Benutzer: mbier
 --> Traceback (most recent call last):
 
-  File "D:\Python\Projekte\AAO\Neue AAO\GitHub\NeuesDienstprogramm\IncidentLog\IncidentLog\elementsGui\layouts\buttonLayoutRow.py", line 13, in <lambda>
-    self.__clearButton.clicked.connect(lambda: signalManager.on_set_default_values.emit())
-                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Projekte\AAO\Neue AAO\GitHub\NeuesDienstprogramm\IncidentLog\IncidentLog\elementsGui\inputWidgets\timeInputWidget.py", line 13, in <lambda>
+    signalManager.on_set_default_values.connect(lambda: self.setDateTime(QDateTime.currentDateTime()))
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-TypeError: SignalManager.on_set_default_values[dict] signal has 1 argument(s) but 0 provided
+RuntimeError: wrapped C/C++ object of type InputTimeWidget has been deleted
 
 

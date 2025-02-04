@@ -10,13 +10,12 @@ class InputTimeRow(QHBoxLayout):
     def __init__(self):
         super().__init__()
         __caption = CaptionLabel("Zeitpunkt")
-        self.__inputTimeWidget = InputTimeWidget()
         self.__clockButton = ClockButton()
+        self.__inputTimeWidget = InputTimeWidget()
 
         self.addWidget(__caption)
         self.addWidget(self.__clockButton)
         self.addWidget(self.__inputTimeWidget)
-
 
     def getValue(self) -> str:
 

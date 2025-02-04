@@ -2,7 +2,6 @@ from PyQt6.QtWidgets import QHBoxLayout
 
 from elementsGui.inputWidgets.customInputComboBox import CustomInputComboBox
 from elementsGui.labels.captionLabel import CaptionLabel
-from utilityFunctions.myMessageBox import MyMessageBox
 from globals import categorys
 
 

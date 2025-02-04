@@ -1,0 +1,30 @@
+QTableWidget {
+    background-color: rgba(200, 200, 200, 30%);
+    border: 1px solid rgb(150, 150, 150);
+    alternate-background-color: #e0e0e0;
+}
+
+QHeaderView::section {
+    background-color: $primaryColor;
+    color: white;
+    padding: 4px;
+    border: 1px solid rgb(150, 150, 150);
+}
+
+QTableWidget::item {
+    background-color: #ffffff;
+    color: rgb(80, 80, 80);
+    gridline-color: rgb(150, 150, 150);
+}
+
+QTableWidget::item:selected {
+    background-color: $lightPrimaryColor;
+    color: black;
+
+}
+
+QTableWidget::item:hover{
+    background-color: $primaryColor;
+    color: black;
+
+}

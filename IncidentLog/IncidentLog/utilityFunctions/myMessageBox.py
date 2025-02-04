@@ -1,7 +1,7 @@
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QMessageBox
 
-from utilityClasses.ShadowEffect import ShadowEffect
+from utilityClasses.shadowEffect import ShadowEffect
 
 
 def MyMessageBox(windowTitle, message):

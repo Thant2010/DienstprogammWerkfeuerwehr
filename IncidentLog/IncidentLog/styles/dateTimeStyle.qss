@@ -6,7 +6,7 @@ QDateTimeEdit {
 }
 
 QDateTimeEdit::drop-down {
-    background-color: rgb(85, 151, 226);
+    background-color: $primaryColor;
     border: 1px solid black;
     subcontrol-origin: border;
     subcontrol-position: bottom right;
@@ -21,7 +21,7 @@ QDateTimeEdit::down-arrow {
 }
 
 QCalendarWidget QWidget#qt_calendar_navigationbar {
-    background-color: rgb(143, 191, 230);
+    background-color: $lightPrimaryColor;
 }
 
 
@@ -47,7 +47,7 @@ QCalendarWidget QSpinBox {
 }
 
 QCalendarWidget QSpinBox::up-button {
-    background-color: rgb(85, 151, 226);
+    background-color: $primaryColor;
     border: 1px solid black;
     subcontrol-origin: border;
     subcontrol-position: top right;
@@ -56,7 +56,7 @@ QCalendarWidget QSpinBox::up-button {
 }
 
 QCalendarWidget QSpinBox::down-button {
-    background-color: rgb(85, 151, 226);
+    background-color: $primaryColor;
     border: 1px solid black;
     subcontrol-origin: border;
     subcontrol-position: bottom right;
@@ -77,7 +77,7 @@ QCalendarWidget QSpinBox::down-arrow {
 }
 
 QCalendarWidget QToolButton {
-    background-color: rgb(143, 191, 230);
+    background-color: $lightPrimaryColor;
     color: #333;
 }
 
@@ -87,12 +87,12 @@ QCalendarWidget QTableView {
 }
 
 #qt_calendar_prevmonth {
-    background-color: rgb(143, 191, 230);
+    background-color: $lightPrimaryColor;
     icon-size: 15px;
     qproperty-icon: url(icons/leftArrow.svg);
 }
 #qt_calendar_nextmonth {
-    background-color: rgb(143, 191, 230);
+    background-color: $lightPrimaryColor;
     icon-size: 15px;
     qproperty-icon: url(icons/rightArrow.svg);
 }

@@ -2,20 +2,20 @@ import locale
 import os
 import sys
 import traceback
+from string import Template
 
 from PyQt6 import QtGui
 from PyQt6.QtWidgets import QApplication
 
-from elementsGui.window import Window
+from elementsGui.windows.incidentLogWindow import IncidentLogWindow
 from utilityFunctions.writeErrorToLogFile import writeErrorToLogFile
-
+from globals import colorTheme
 
 
 def exceptionHandler(exc_type, exc_value, exc_tb):
     tb = "\n".join(traceback.format_exception(exc_type, exc_value, exc_tb))
     writeErrorToLogFile(f'{tb}')
     QApplication.quit()
-
 
 def loadMultipleStylesheets():
     combinedStylesheet = ""
@@ -24,7 +24,12 @@ def loadMultipleStylesheets():
             file_path = os.path.join("styles", filename)
             with open(file_path, "r") as styleFile:
                 combinedStylesheet += styleFile.read() + "\n"
-    return combinedStylesheet
+                styleFile.close()
+
+    templape = Template(combinedStylesheet)
+    finalStylesheet = templape.safe_substitute(colorTheme)
+
+    return finalStylesheet
 
 
 if __name__ == "__main__":
@@ -39,5 +44,6 @@ if __name__ == "__main__":
 
     sys.excepthook = exceptionHandler
 
-    w = Window()
+    w = IncidentLogWindow()
+
     sys.exit(app.exec())

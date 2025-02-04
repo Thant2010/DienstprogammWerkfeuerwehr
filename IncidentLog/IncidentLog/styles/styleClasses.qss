@@ -1,3 +1,11 @@
-#clockButton {
-    background-color: rgb(0, 120, 0);
+#outlineLabel {
+    font-family: "Orbitron";
+    background-color: rgba(0, 0, 0, 0%);
+    font-size: 30pt;
+    font-weight: bold;
+
+    qproperty-outlineColor: rgb(0, 0, 0);  
+    qproperty-textColor: $primaryColor;     
+    qproperty-outlineWidth: 1;
+
 }

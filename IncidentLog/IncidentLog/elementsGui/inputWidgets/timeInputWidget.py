@@ -1,7 +1,7 @@
 from PyQt6.QtCore import Qt, QDateTime
 from PyQt6.QtWidgets import QDateTimeEdit
 
-from utilityClasses.SignalManager import signalManager
+from utilityClasses.signalManager import signalManager
 from utilityFunctions.myMessageBox import MyMessageBox
 
 
@@ -11,15 +11,13 @@ class InputTimeWidget(QDateTimeEdit):
         super().__init__()
         signalManager.on_set_time_click.connect(lambda: self.setDateTime(QDateTime.currentDateTime()))
         signalManager.on_set_default_values.connect(lambda: self.setDateTime(QDateTime.currentDateTime()))
+
         self.setMinimumSize(200, 30)
         self.setDisplayFormat("dd.MM.yyyy HH:mm")
         self.setCalendarPopup(True)
         self.setDateTime(QDateTime.currentDateTime())
         self.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.setMaximumDate(QDateTime.currentDateTime().date())
-
-    def focusInEvent(self, e):
-        self.setSelectedSection(QDateTimeEdit.Section.HourSection)
 
     def getCurrentValue(self) -> str:
         if self.dateTime() <= QDateTime.currentDateTime():

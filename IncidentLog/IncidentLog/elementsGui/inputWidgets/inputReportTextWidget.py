@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QTextEdit
 
-from utilityClasses.SignalManager import signalManager
+from utilityClasses.signalManager import signalManager
 from utilityFunctions.myMessageBox import MyMessageBox
 
 
@@ -12,7 +12,6 @@ class InputReportTextWidget(QTextEdit):
 
         self.setMinimumWidth(400)
         self.setProperty("fontsize", "medium")
-
 
     def getInput(self) -> str:
         if self.toPlainText() != "":

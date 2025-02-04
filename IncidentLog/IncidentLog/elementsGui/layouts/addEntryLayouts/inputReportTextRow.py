@@ -4,9 +4,7 @@ from PyQt6.QtWidgets import QHBoxLayout
 from elementsGui.inputWidgets.inputReportTextWidget import InputReportTextWidget
 from elementsGui.labels.captionLabel import CaptionLabel
 
-
-class InputReportText(QHBoxLayout):
-
+class InputReportTextRow(QHBoxLayout):
     def __init__(self):
         super().__init__()
         caption = CaptionLabel("Text")

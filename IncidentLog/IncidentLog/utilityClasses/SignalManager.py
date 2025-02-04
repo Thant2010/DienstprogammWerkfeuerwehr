@@ -7,7 +7,8 @@ class SignalManager(QObject):
     on_set_time_click = pyqtSignal()
     on_entry_window_close = pyqtSignal()
     on_save_entry_click = pyqtSignal()
-    on_successful_save = pyqtSignal(dict)
+    on_data_is_valid = pyqtSignal(dict)
+    on_add_new_entry = pyqtSignal()
 
     def __init__(self):
         super().__init__()

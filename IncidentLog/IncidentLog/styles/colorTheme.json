@@ -1,0 +1,8 @@
+{
+  "backgroundColor1": "rgb(200, 200, 200)",
+  "backgroundColor2": "rgb(110, 110, 110)",
+  "lightPrimaryColor": "rgb(134, 189, 235)",
+  "primaryColor": "rgb(94, 164, 221)",
+  "darkPrimaryColor": "rgb(61, 139, 204)",
+  "buttonColor": "rgb(29, 113, 183)"
+}

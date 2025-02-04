@@ -1,0 +1,9 @@
+
+QPushButton[buttonType="icon"] {
+    background-color: $buttonColor;
+  
+}
+
+QPushButton[buttonType="clock"] {
+    background-color: rgb(0, 120, 0);
+}

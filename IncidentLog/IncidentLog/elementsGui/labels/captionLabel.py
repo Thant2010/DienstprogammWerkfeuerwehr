@@ -9,4 +9,4 @@ class CaptionLabel(QLabel):
         self.setText(caption)
         self.setProperty("fontsize", "medium")
         self.setProperty("weight", "bold")
-        self.setAlignment(Qt.AlignmentFlag.AlignLeft)
+        self.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
