@@ -1,4 +1,148 @@
---> 03.02.2025 18:36
+--> 04.02.2025 19:34
+--> Benutzer: mbier
+--> Traceback (most recent call last):
+
+  File "D:\Python\Projekte\AAO\Neue AAO\GitHub\NeuesDienstprogramm\IncidentLog\IncidentLog\elementsGui\labels\outlineTitleLabel.py", line 22, in paintEvent
+    def paintEvent(self, event):
+    
+
+KeyboardInterrupt
+
+
+--> 04.02.2025 19:39
+--> Benutzer: mbier
+--> Traceback (most recent call last):
+
+  File "D:\Python\Projekte\AAO\Neue AAO\GitHub\NeuesDienstprogramm\IncidentLog\IncidentLog\elementsGui\labels\outlineTitleLabel.py", line 22, in paintEvent
+    def paintEvent(self, event):
+    
+
+KeyboardInterrupt
+
+
+--> 04.02.2025 19:41
+--> Benutzer: mbier
+--> Traceback (most recent call last):
+
+  File "D:\Python\Projekte\AAO\Neue AAO\GitHub\NeuesDienstprogramm\IncidentLog\IncidentLog\elementsGui\inputWidgets\timeInputWidget.py", line 13, in <lambda>
+    signalManager.on_set_default_values.connect(lambda: self.setDateTime(QDateTime.currentDateTime()))
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+RuntimeError: wrapped C/C++ object of type InputTimeWidget has been deleted
+
+
+--> 04.02.2025 19:45
+--> Benutzer: mbier
+--> Traceback (most recent call last):
+
+  File "D:\Python\Projekte\AAO\Neue AAO\GitHub\NeuesDienstprogramm\IncidentLog\IncidentLog\elementsGui\windows\incidentLogWindow.py", line 51, in __openChangeEntryWindow
+    self.__incidentLogTable.getRowValue()
+
+  File "D:\Python\Projekte\AAO\Neue AAO\GitHub\NeuesDienstprogramm\IncidentLog\IncidentLog\elementsGui\tableWidget\incdentLogTableWidget.py", line 71, in getRowValue
+    for reihe in markierte_reihen:
+
+TypeError: 'int' object is not iterable
+
+
+--> 04.02.2025 19:57
+--> Benutzer: mbier
+--> TypeError: SignalManager.on_change_entry_click[dict].emit(): argument 1 has unexpected type 'bool'
+
+
+--> 04.02.2025 19:58
+--> Benutzer: mbier
+--> TypeError: SignalManager.on_change_entry_click[dict].emit(): argument 1 has unexpected type 'bool'
+
+
+
+
+--> 04.02.2025 20:40
+--> Benutzer: mbier
+--> Traceback (most recent call last):
+
+  File "D:\Python\Projekte\AAO\Neue AAO\GitHub\NeuesDienstprogramm\IncidentLog\IncidentLog\elementsGui\windows\incidentLogWindow.py", line 47, in __openAddEntryWindow
+    self.__addEntryWindow = AddEntryWindow()
+                            ^^^^^^^^^^^^^^^^
+
+  File "D:\Python\Projekte\AAO\Neue AAO\GitHub\NeuesDienstprogramm\IncidentLog\IncidentLog\elementsGui\windows\addEntryWindow.py", line 33, in __init__
+    self.__inputReportTextRow = InputReportTextRow()
+                                ^^^^^^^^^^^^^^^^^^^^
+
+  File "D:\Python\Projekte\AAO\Neue AAO\GitHub\NeuesDienstprogramm\IncidentLog\IncidentLog\elementsGui\layouts\addEntryLayouts\inputReportTextRow.py", line 11, in __init__
+    self.__inputReportText = InputReportTextWidget()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "D:\Python\Projekte\AAO\Neue AAO\GitHub\NeuesDienstprogramm\IncidentLog\IncidentLog\elementsGui\inputWidgets\inputReportTextWidget.py", line 13, in __init__
+    signalManager.on_get_change(self.__apendChanges)
+
+TypeError: native Qt signal is not callable
+
+
+--> 04.02.2025 21:08
+--> Benutzer: mbier
+--> Traceback (most recent call last):
+
+  File "D:\Python\Projekte\AAO\Neue AAO\GitHub\NeuesDienstprogramm\IncidentLog\IncidentLog\elementsGui\tableWidget\incdentLogTableWidget.py", line 83, in __insertChanges
+    rowId = changedValue['sequenzNumber'] - 1
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+
+TypeError: unsupported operand type(s) for -: 'str' and 'int'
+
+
+--> 04.02.2025 21:11
+--> Benutzer: mbier
+--> Traceback (most recent call last):
+
+  File "D:\Python\Projekte\AAO\Neue AAO\GitHub\NeuesDienstprogramm\IncidentLog\IncidentLog\elementsGui\windows\incidentLogWindow.py", line 51, in __openChangeEntryWindow
+    self.changeEntryWindow = ChangeEntryWindow(currentRowData)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "D:\Python\Projekte\AAO\Neue AAO\GitHub\NeuesDienstprogramm\IncidentLog\IncidentLog\elementsGui\windows\changeEntryWindow.py", line 52, in __init__
+    self.__setEntryValues(currentRowData)
+
+  File "D:\Python\Projekte\AAO\Neue AAO\GitHub\NeuesDienstprogramm\IncidentLog\IncidentLog\elementsGui\windows\changeEntryWindow.py", line 67, in __setEntryValues
+    self.__inputReportSender.setReportSender(entryValues['reportSender'])
+
+  File "D:\Python\Projekte\AAO\Neue AAO\GitHub\NeuesDienstprogramm\IncidentLog\IncidentLog\elementsGui\layouts\addEntryLayouts\inputReportSenderRow.py", line 28, in setReportSender
+    self.__reportSenderComboBox.setCurrentText(index)
+
+TypeError: setCurrentText(self, text: Optional[str]): argument 1 has unexpected type 'int'
+
+
+--> 04.02.2025 21:15
+--> Benutzer: mbier
+--> Traceback (most recent call last):
+
+  File "D:\Python\Projekte\AAO\Neue AAO\GitHub\NeuesDienstprogramm\IncidentLog\IncidentLog\elementsGui\inputWidgets\timeInputWidget.py", line 13, in <lambda>
+    signalManager.on_set_default_values.connect(lambda: self.setDateTime(QDateTime.currentDateTime()))
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+RuntimeError: wrapped C/C++ object of type InputTimeWidget has been deleted
+
+
+--> 04.02.2025 21:15
+--> Benutzer: mbier
+--> Traceback (most recent call last):
+
+  File "D:\Python\Projekte\AAO\Neue AAO\GitHub\NeuesDienstprogramm\IncidentLog\IncidentLog\elementsGui\inputWidgets\timeInputWidget.py", line 13, in <lambda>
+    signalManager.on_set_default_values.connect(lambda: self.setDateTime(QDateTime.currentDateTime()))
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+RuntimeError: wrapped C/C++ object of type InputTimeWidget has been deleted
+
+
+--> 04.02.2025 21:16
+--> Benutzer: mbier
+--> Traceback (most recent call last):
+
+  File "D:\Python\Projekte\AAO\Neue AAO\GitHub\NeuesDienstprogramm\IncidentLog\IncidentLog\elementsGui\inputWidgets\timeInputWidget.py", line 13, in <lambda>
+    signalManager.on_set_default_values.connect(lambda: self.setDateTime(QDateTime.currentDateTime()))
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+RuntimeError: wrapped C/C++ object of type InputTimeWidget has been deleted
+
+
+--> 04.02.2025 21:16
 --> Benutzer: mbier
 --> Traceback (most recent call last):
 

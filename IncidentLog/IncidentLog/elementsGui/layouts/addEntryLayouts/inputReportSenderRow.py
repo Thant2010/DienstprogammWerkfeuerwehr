@@ -9,6 +9,7 @@ class InputReportSenderRow(QHBoxLayout):
 
     def __init__(self):
         super().__init__()
+
         caption = CaptionLabel("Absender")
         self.__reportSenderComboBox = CustomInputComboBox("Absender", reportSender, False)
         self.__reportSenderComboBox.setToolTip("Eintrag wählen oder Editiern")
@@ -18,3 +19,10 @@ class InputReportSenderRow(QHBoxLayout):
 
     def getValue(self) -> str:
         return self.__reportSenderComboBox.currentText()
+
+    def setDisabled(self):
+        self.__reportSenderComboBox.setDisabled(True)
+
+    def setReportSender(self, sender):
+        index = self.__reportSenderComboBox.findText(sender)
+        self.__reportSenderComboBox.setCurrentIndex(index)

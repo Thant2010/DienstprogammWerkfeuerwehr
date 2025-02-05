@@ -28,3 +28,10 @@ QTableWidget::item:hover{
     color: black;
 
 }
+
+QHeaderView::section {
+    background-color: $primaryColor;
+    border: 1px solid #000;
+
+    font-weight: bold;
+}

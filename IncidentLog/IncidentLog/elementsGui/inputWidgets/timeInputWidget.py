@@ -10,7 +10,7 @@ class InputTimeWidget(QDateTimeEdit):
     def __init__(self):
         super().__init__()
         signalManager.on_set_time_click.connect(lambda: self.setDateTime(QDateTime.currentDateTime()))
-        signalManager.on_set_default_values.connect(lambda: self.setDateTime(QDateTime.currentDateTime()))
+        #signalManager.on_set_default_values.connect(lambda: self.setDateTime(QDateTime.currentDateTime()))
 
         self.setMinimumSize(200, 30)
         self.setDisplayFormat("dd.MM.yyyy HH:mm")

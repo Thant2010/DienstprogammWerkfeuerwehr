@@ -15,3 +15,9 @@ class InputReportTextRow(QHBoxLayout):
 
     def getValue(self) -> str:
         return self.__inputReportText.getInput()
+
+    def setDiabled(self):
+        self.__inputReportText.setReadOnly(True)
+
+    def setReportText(self, text):
+        self.__inputReportText.setPlainText(text)

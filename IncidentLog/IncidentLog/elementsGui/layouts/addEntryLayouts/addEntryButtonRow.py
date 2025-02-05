@@ -10,7 +10,7 @@ class AddEntryButtonRow(QVBoxLayout):
     def __init__(self):
         super().__init__()
         self.__closeButton = IconButton("close", 40)
-        self.__closeButton.clicked.connect(lambda: signalManager.on_entry_window_close.emit())
+        self.__closeButton.clicked.connect(lambda: signalManager.on_new_entry_window_close.emit())
         self.__clearButton = IconButton("clear", 40)
         self.__clearButton.clicked.connect(lambda: signalManager.on_set_default_values.emit())
         self.__saveButton = IconButton("save", 40)

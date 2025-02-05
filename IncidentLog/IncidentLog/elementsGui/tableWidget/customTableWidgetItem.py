@@ -23,5 +23,9 @@ class CustomTableWidgetItem(QTableWidgetItem):
                 self.setTextAlignment(Qt.AlignmentFlag.AlignRight)
                 return
 
+    def getItemValue(self) -> dict:
+        return self.__dictKey, self.text()
 
+    def setValue(self, value: str):
+        self.setText(value)
 

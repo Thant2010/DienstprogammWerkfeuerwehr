@@ -7,6 +7,7 @@ from elementsGui.labels.outlineTitleLabel import OutlineTitleLabel
 from elementsGui.layouts.incidentLogLayouts.incidentLogButtonRow import IncidentLogButtonRow
 from elementsGui.tableWidget.incdentLogTableWidget import IncidentLogTableWidget
 from elementsGui.windows.addEntryWindow import AddEntryWindow
+from elementsGui.windows.changeEntryWindow import ChangeEntryWindow
 from utilityClasses.layoutSpacer import LayoutSpacer
 from utilityClasses.signalManager import signalManager
 
@@ -19,7 +20,9 @@ class IncidentLogWindow(QWidget):
         self.setWindowIcon(QIcon("icons/windowIcons/incidentLog.ico"))
         self.setMinimumSize(1200, 750)
 
-        signalManager.on_add_new_entry.connect(self.__openAddEntryWindow)
+        signalManager.on_get_row_data.connect(self.__openChangeEntryWindow)
+        signalManager.on_add_new_entry_click.connect(self.__openAddEntryWindow)
+        signalManager.on_incident_log_window_close.connect(self.close)
 
         layout = QGridLayout()
 
@@ -42,3 +45,7 @@ class IncidentLogWindow(QWidget):
     def __openAddEntryWindow(self):
 
         self.__addEntryWindow = AddEntryWindow()
+
+    def __openChangeEntryWindow(self, currentRowData: dict):
+
+        self.changeEntryWindow = ChangeEntryWindow(currentRowData)

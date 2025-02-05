@@ -21,7 +21,7 @@ class AddEntryWindow(QWidget):
         self.setFixedSize(950, 220)
 
         signalManager.on_save_entry_click.connect(self.__checkValues)
-        signalManager.on_entry_window_close.connect(self.close)
+        signalManager.on_new_entry_window_close.connect(self.close)
 
         titleLabel = OutlineTitleLabel("Neuer Eintrag:")
         layout = QGridLayout()

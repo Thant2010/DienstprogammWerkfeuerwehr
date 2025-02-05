@@ -17,3 +17,10 @@ class InputCategoryRow(QHBoxLayout):
 
     def getValue(self) -> str:
         return self.__categoryComboBox.currentText()
+
+    def setDisabled(self):
+        self.__categoryComboBox.setDisabled(True)
+
+    def setCategoryValue(self, category):
+        index = self.__categoryComboBox.findText(category)
+        self.__categoryComboBox.setCurrentIndex(index)

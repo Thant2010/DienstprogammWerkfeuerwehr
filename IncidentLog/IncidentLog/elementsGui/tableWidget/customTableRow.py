@@ -21,4 +21,3 @@ class CustomTableRow:
         row = tableWidget.rowCount() - 1
         for i in range(len(self.__rowItems)):
             tableWidget.setItem(row, i, self.__rowItems[i])
-

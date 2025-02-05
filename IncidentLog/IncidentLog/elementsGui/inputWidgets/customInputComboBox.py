@@ -11,6 +11,8 @@ class CustomInputComboBox(QComboBox):
     def __init__(self, name: str, comboList: list, readOnly: bool):
         super().__init__()
         signalManager.on_set_default_values.connect(self.__setDefault)
+
+
         self.setObjectName(name)
         self.setMinimumSize(200, 30)
         self.setProperty("selectable", True)
@@ -43,3 +45,4 @@ class CustomInputComboBox(QComboBox):
 
     def __setDefault(self):
         self.setCurrentIndex(0)
+
