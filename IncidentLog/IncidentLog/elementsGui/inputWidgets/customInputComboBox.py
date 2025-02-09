@@ -3,7 +3,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QComboBox
 
 from utilityClasses.signalManager import signalManager
-from utilityFunctions.myMessageBox import MyMessageBox
+from utilityClasses.customMessageBox import CustomMessageBox
 
 
 class CustomInputComboBox(QComboBox):
@@ -32,7 +32,7 @@ class CustomInputComboBox(QComboBox):
         if self.currentIndex() != 0:
             return super().currentText()
         else:
-            MyMessageBox("Achtung", f"Bitte {self.objectName()} wählen")
+            CustomMessageBox().showInfoMessage("Achtung", f"Bitte {self.objectName()} wählen")
             self.setFocus()
             return None
 

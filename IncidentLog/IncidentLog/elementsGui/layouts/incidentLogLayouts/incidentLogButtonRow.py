@@ -14,6 +14,7 @@ class IncidentLogButtonRow(QHBoxLayout):
         self.__editEntryButton = IconButton("edit", 60)
         self.__editEntryButton.clicked.connect(signalManager.on_change_entry_click.emit)
         self.__removeEntryButton = IconButton("remove", 60)
+        self.__removeEntryButton.clicked.connect(signalManager.on_strike_out_row_click.emit)
         self.__closeButton = IconButton("close", 60)
         self.__closeButton.clicked.connect(signalManager.on_incident_log_window_close.emit)
 

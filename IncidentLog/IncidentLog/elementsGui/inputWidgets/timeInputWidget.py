@@ -2,7 +2,7 @@ from PyQt6.QtCore import Qt, QDateTime
 from PyQt6.QtWidgets import QDateTimeEdit
 
 from utilityClasses.signalManager import signalManager
-from utilityFunctions.myMessageBox import MyMessageBox
+from utilityClasses.customMessageBox import CustomMessageBox
 
 
 class InputTimeWidget(QDateTimeEdit):
@@ -23,7 +23,7 @@ class InputTimeWidget(QDateTimeEdit):
         if self.dateTime() <= QDateTime.currentDateTime():
             return self.dateTime().toString("dd.MM.yyyy HH:mm")
         else:
-            MyMessageBox("Achtung", "Die gewählte Zeit liegt in der Zukunft")
+            CustomMessageBox().showInfoMessage("Achtung", "Die gewählte Zeit liegt in der Zukunft")
             self.setFocus()
             return None
 

@@ -9,10 +9,10 @@ from elementsGui.layouts.addEntryLayouts.inputReportTextRow import InputReportTe
 from elementsGui.layouts.addEntryLayouts.inputTimeRow import InputTimeRow
 from elementsGui.layouts.changeEntryLayouts.changeEntryButtonRow import ChangeEntryButtonRow
 from elementsGui.layouts.changeEntryLayouts.inputChangesRow import InputChangesRow
+from utilityClasses.getTimeStamp import GetTimeStamp
 from utilityClasses.layoutSpacer import LayoutSpacer
 from utilityClasses.signalManager import signalManager
-from utilityFunctions.getCurrentTime import getCurrentDateTime
-from utilityFunctions.getUserName import getFullUserName
+
 
 
 class ChangeEntryWindow(QWidget):
@@ -71,9 +71,8 @@ class ChangeEntryWindow(QWidget):
     def __saveChanges(self):
         changes = self.__inputChangesRow.getInputValue()
         if changes is not None:
-            time = getCurrentDateTime()
-            user = getFullUserName()
-            signalManager.on_get_change.emit(changes, time, user)
+            timeStamp = GetTimeStamp.getTimeStamp()
+            signalManager.on_get_change.emit(changes, timeStamp)
             changedEntry = self.__getValues()
             signalManager.on_insert_changes.emit(changedEntry)
             self.close()

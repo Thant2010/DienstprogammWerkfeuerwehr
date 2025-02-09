@@ -36,15 +36,15 @@
     ],
     "edit": [
       "icons/edit.svg",
-      "Bearbeiten"
+      "Eintrag bearbeiten"
     ],
     "add": [
       "icons/add.svg",
-      "Hinzüfugen"
+      "Eintrag hinzüfugen"
     ],
     "remove": [
       "icons/remove.svg",
-      "Eetfernen"
+      "Eintrag durchstreichen"
     ],
     "close": [
       "icons/close.svg",

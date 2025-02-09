@@ -13,10 +13,10 @@ class IncidentLogHeaderBox(QGroupBox):
         self.setMaximumWidth(900)
         self.__inputAlarmCategoryRow = InputAlarmCategoryRow()
         self.__inputAlarmAreaRow = InputAlarmAreaRow()
-        self.__inputAlarmEveltRow = InputAlarmEventRow()
+        self.__inputAlarmEventRow = InputAlarmEventRow()
 
         layout.addLayout(self.__inputAlarmCategoryRow, 1, 0, 1, 2)
         layout.addLayout(self.__inputAlarmAreaRow, 1, 2, 1, 2)
-        layout.addLayout(self.__inputAlarmEveltRow, 2, 0, 1, 4)
+        layout.addLayout(self.__inputAlarmEventRow, 2, 0, 1, 4)
 
         self.setLayout(layout)

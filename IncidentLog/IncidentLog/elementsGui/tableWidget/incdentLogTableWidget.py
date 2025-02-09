@@ -1,10 +1,11 @@
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QTableWidget, QFrame, QHeaderView, QSizePolicy, QAbstractItemView
+from PyQt6.QtWidgets import QTableWidget, QFrame, QHeaderView, QSizePolicy, QAbstractItemView, QMessageBox
 
 from elementsGui.tableWidget.customTableRow import CustomTableRow
 from elementsGui.tableWidget.customTableWidgetItem import CustomTableWidgetItem
 from globals import logTableHeader
 from utilityClasses.signalManager import signalManager
+from utilityClasses.customMessageBox import CustomMessageBox
 
 
 class IncidentLogTableWidget(QTableWidget):
@@ -15,6 +16,7 @@ class IncidentLogTableWidget(QTableWidget):
         signalManager.on_data_is_valid.connect(self.__addNewEntryRow)
         signalManager.on_change_entry_click.connect(self.__getRowValue)
         signalManager.on_insert_changes.connect(self.__insertChanges)
+        signalManager.on_strike_out_row_click.connect(self.__checkRowStrike)
 
         self.__currentSortOrder = Qt.SortOrder.AscendingOrder
 
@@ -30,6 +32,8 @@ class IncidentLogTableWidget(QTableWidget):
 
         self.verticalHeader().setVisible(False)
         self.horizontalHeader().sectionDoubleClicked.connect(self.__onHeaderClicked)
+
+        self.itemDoubleClicked.connect(self.__getRowValue)
 
         self.__setColumnWidth()
         self.__updateHeight()
@@ -74,10 +78,34 @@ class IncidentLogTableWidget(QTableWidget):
             for column in range(self.columnCount()):
                 item: CustomTableWidgetItem = self.item(selectedRow, column)
                 if item:
+                    print(self.__checkStrikeOut(item))
                     key, value = item.getItemValue()
                     rowdata[key] = value
 
             signalManager.on_get_row_data.emit(rowdata)
+
+    def __rowStrikeOut(self):
+
+        if self.currentRow() >= 0:
+            selectedRow = self.currentRow()
+            for column in range(self.columnCount()):
+                item: CustomTableWidgetItem = self.item(selectedRow, column)
+                if item:
+                    font = item.font()
+                    font.setStrikeOut(True)
+                    item.setFont(font)
+
+    def __checkRowStrike(self):
+        result = CustomMessageBox().showYesNoMessage("Durchstreichen",
+                                                   "Wollen sie die Aktuelle Reihe durchstreichen?")
+        if result == QMessageBox.StandardButton.Yes:
+            self.__rowStrikeOut()
+        else:
+            return
+
+    def __checkStrikeOut(self, item: CustomTableWidgetItem):
+
+        return "Durchgestrichen" if item.font().strikeOut() else "Nein"
 
     def __insertChanges(self, changedValue):
         rowId = int(changedValue['sequenzNumber']) - 1

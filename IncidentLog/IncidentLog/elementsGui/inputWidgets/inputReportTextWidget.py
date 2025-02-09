@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QTextEdit
 
 from utilityClasses.signalManager import signalManager
-from utilityFunctions.myMessageBox import MyMessageBox
+from utilityClasses.customMessageBox import CustomMessageBox
 
 
 class InputReportTextWidget(QTextEdit):
@@ -19,7 +19,7 @@ class InputReportTextWidget(QTextEdit):
         if self.toPlainText() != "":
             return self.toPlainText()
         else:
-            MyMessageBox("Achtung", "Bitte einen Text eingeben")
+            CustomMessageBox().showInfoMessage("Achtung", "Bitte einen Text eingeben")
             self.setFocus()
             return None
 
@@ -27,6 +27,6 @@ class InputReportTextWidget(QTextEdit):
 
         self.setText("")
 
-    def __apendChanges(self, newText: str, dateTime: str, user: str):
+    def __apendChanges(self, newText: str, timeStamp: str):
 
-        self.append(f"Nachtrag: {newText} ({dateTime} durch {user})")
+        self.append(f"Nachtrag: {newText} ({timeStamp})")

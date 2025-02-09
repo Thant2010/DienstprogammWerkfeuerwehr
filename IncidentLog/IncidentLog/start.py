@@ -26,8 +26,8 @@ def loadMultipleStylesheets():
                 combinedStylesheet += styleFile.read() + "\n"
                 styleFile.close()
 
-    templape = Template(combinedStylesheet)
-    finalStylesheet = templape.safe_substitute(colorTheme)
+    template = Template(combinedStylesheet)
+    finalStylesheet = template.safe_substitute(colorTheme)
 
     return finalStylesheet
 
