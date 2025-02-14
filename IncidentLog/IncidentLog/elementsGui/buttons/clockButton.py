@@ -13,5 +13,3 @@ class ClockButton(QPushButton):
         self.setIconSize(QSize(20, 20))
         self.setProperty("buttonType", "clock")
         self.setToolTip("Aktuelle Zeit setzen")
-
-        self.clicked.connect(lambda: signalManager.on_set_time_click.emit())

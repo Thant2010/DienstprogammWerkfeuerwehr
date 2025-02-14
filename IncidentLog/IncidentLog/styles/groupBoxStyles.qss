@@ -4,7 +4,7 @@ QGroupBox {
     background-color: rgba(143, 191, 230, 30%);
     border: 1px solid black;
     border-radius: 5px;
-    border-color:rgb(180,180,180);
+    border-color:rgb(50,50,50);
     margin-top: 15px;
 }
 

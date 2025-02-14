@@ -7,10 +7,11 @@ class SignalManager(QObject):
 
       Signals:
           on_set_default_values:        Signal für das Zurücksetzen auf Standardwerte (keine Parameter).
-          on_set_time_click:            Signal, um die aktuelle Zeit zu setzen (keine Parameter).
-          on_data_is_valid:             Signal, das ein dict (Eingabedaten) sendet, wenn Daten validiert wurden.
+          on_log_data_is_valid:             Signal, das ein dict (Log Eintragsdaten) sendet, wenn Daten validiert wurden.
+          on_unit_data_is_valid:        Signal, das ein dict (Einheiten) sendet, wenn Daten validiert wurden.
           on_get_row_data:              Signal, das ein dict mit Zeilendaten überträgt.
           on_save_entry_click:          Signal, wenn ein neuer Eintrag gespeichert werden soll.
+          on_add_unit_click:            Signal, wenn Einsatzkräfte hinzugefügt werden sollen.
           on_save_changes_click:        Signal, wenn Änderungen gespeichert werden sollen.
           on_add_new_entry_click:       Signal, wenn ein neuer Eintrag begonnen wird.
           on_change_entry_click:        Signal, wenn ein existierender Eintrag geändert werden soll.
@@ -23,13 +24,14 @@ class SignalManager(QObject):
       """
 
     on_set_default_values = pyqtSignal()
-    on_set_time_click = pyqtSignal()
 
-    on_data_is_valid = pyqtSignal(dict)
+    on_log_data_is_valid = pyqtSignal(dict)
+    on_unit_data_is_valid = pyqtSignal(dict)
     on_get_row_data = pyqtSignal(dict)
     on_save_entry_click = pyqtSignal()
     on_save_changes_click = pyqtSignal()
     on_add_new_entry_click = pyqtSignal()
+    on_add_unit_click = pyqtSignal()
     on_change_entry_click = pyqtSignal()
     on_strike_out_row_click = pyqtSignal()
 

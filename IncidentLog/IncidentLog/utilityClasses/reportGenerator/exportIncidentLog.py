@@ -1,169 +1,119 @@
-# KI-Generiert - Anpassung fehlt
-
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.platypus import Paragraph
-from reportlab.platypus import (
-    SimpleDocTemplate,
-    Table,
-    TableStyle,
-    Spacer,
-    PageBreak
-)
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Spacer, PageBreak
+
+from globals import incidentLogPath
+from utilityClasses.reportGenerator.strikeTroughParagraph import StrikeThroughParagraph
 
 
-# Benutzerdefinierter Paragraph, der einen Strikethrough-Effekt über die gesamte Zeile zeichnet.
-class StrikeThroughParagraph(Paragraph):
-    def __init__(self, text, style, strike=False):
-        self.strike = strike
-        super().__init__(text, style)
+class IncidentLogReportGenerator:
 
-    def draw(self):
-        # Zuerst den normalen Paragraphen zeichnen
-        super().draw()
-        # Falls der Strikethrough-Effekt gewünscht ist und Zeilen vorhanden sind:
-        if self.strike and hasattr(self, 'blPara') and self.blPara:
-            # Iteriere über alle Zeilen (FragLine-Objekte) des formatierten Paragraphen.
-            for i, frag in enumerate(self.blPara.lines):
-                # Versuche den Text der FragLine auszulesen, falls vorhanden.
-                #line_text = getattr(frag, 'text', str(frag))
-                # Anstatt die Breite des Textes zu berechnen, verwenden wir die ganze verfügbare Breite.
-                line_width = self.width  # Ganze Breite des Paragraphen
-                # Berechne eine y-Position in der Mitte der jeweiligen Zeile.
-                y = self.height - (i + 0.5) * self.style.leading
-                self.canv.setLineWidth(0.5)
-                self.canv.line(0, y, line_width, y)
+    def __init__(self):
+        self.__document = SimpleDocTemplate(filename="", pagesize=A4)
+        self.__styles = getSampleStyleSheet()
+        self.__reportStory = []
+        self.__cellStyle = ParagraphStyle(name="CellStyle",
+                                          parent=self.__styles["BodyText"],
+                                          alignment=0,  # linksbündig
+                                          leading=12,
+                                          spaceAfter=4)
+        self.__tableStyle = [("BACKGROUND", (0, 0), (-1, 0), colors.lightgrey),
+                            ("TEXTCOLOR", (0, 0), (-1, 0), colors.black),
+                            ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+                            ("BOTTOMPADDING", (0, 0), (-1, 0), 12),
+                            ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),
+                            ("ALIGN", (0, 0), (-1, -1), "LEFT"),
+                            ("VALIGN", (0, 0), (-1, -1), "TOP")]
 
-
-class EinsatzberichtPDFGenerator:
-    @staticmethod
-    def create_pdf(report_data: dict, checkbox_data: dict, pdf_path: str):
+    def create_pdf(self, reportData: dict, fileName: str):
         """
-        Erzeugt ein PDF mit zwei Seiten:
-        - Seite 1: Incident-Log-Daten. Falls in einem Eintrag "striketrough" True ist,
-          wird der Text mit einem Strikethrough-Effekt über die gesamte Zeile angezeigt.
-        - Seite 2: Eine Tabelle mit Einsatzkräften und einem einfachen Checkbox-Symbol
-          ('X' bei True, ' ' bei False), dargestellt in tabellarischer Form.
+        Erzeugt ein PDF mit den Daten des Einsatztagebuchs mit abschließender Seite der
+        alarmierten Kräfte
         """
-        doc = SimpleDocTemplate(pdf_path, pagesize=A4)
-        story = []
-        styles = getSampleStyleSheet()
 
-        # ParagraphStyle für Tabellenzellen (linksbündig)
-        cell_style = ParagraphStyle(
-            name="CellStyle",
-            parent=styles["BodyText"],
-            alignment=0,  # linksbündig
-            leading=12,
-            spaceAfter=4
-        )
+        self.__document.filename = f"{incidentLogPath}{fileName}"
 
-        # --- Seite 1: Incident-Log / Hauptinhalt ---
-        story.append(Paragraph("Einsatzbericht", styles["Title"]))
-        story.append(Spacer(1, 12))
+        # --- Title und Header ---
+        self.__reportStory.append(Paragraph("Einsatzbericht", self.__styles["Title"]))
+        self.__reportStory.append(Spacer(1, 12))
 
-        # Allgemeine Informationen
-        gen_info = (
-            f"<b>Bericht-Nr.:</b> {report_data.get('reportNumber', '')}<br/>"
-            f"<b>Alarm-Kategorie:</b> {report_data.get('alarmCategory', '')}<br/>"
-            f"<b>Alarm-Bereich:</b> {report_data.get('alarmArea', '')}<br/>"
-            f"<b>Schadensereignis:</b> {report_data.get('alarmEvent', '')}<br/>"
-            f"<b>Dauer:</b> {report_data.get('duration', '')}<br/>"
-        )
-        story.append(Paragraph(gen_info, styles["Normal"]))
-        story.append(Spacer(1, 12))
+        self.__createHeader(reportData["header"])
 
         # Erstellung der Incident-Log-Tabelle
-        incident_table_data = EinsatzberichtPDFGenerator._build_incident_log_table_data(report_data, cell_style)
-        incident_table = EinsatzberichtPDFGenerator._build_table(
-            incident_table_data,
-            col_widths=[50, 110, 100, 100, 200],
-            style_cmds=[
-                ("BACKGROUND", (0, 0), (-1, 0), colors.lightgrey),
-                ("TEXTCOLOR", (0, 0), (-1, 0), colors.black),
-                ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
-                ("BOTTOMPADDING", (0, 0), (-1, 0), 12),
-                ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),
-                ("ALIGN", (0, 0), (-1, -1), "LEFT"),
-                ("VALIGN", (0, 0), (-1, -1), "TOP"),
-            ]
+        incident_table_data = self.__buildIncidentLogTableData(reportData["incidentLog"])
+        incident_table = self.__build_table(incident_table_data, col_widths=[50, 110, 100, 100, 200])
+        self.__reportStory.append(incident_table)
+
+        # Eingesetzte Einheiten
+        self.__reportStory.append(PageBreak())
+        self.__reportStory.append(Paragraph("Einsatzkräfte", self.__styles["Title"]))
+        self.__reportStory.append(Spacer(1, 12))
+
+        checkbox_table_data = self.__buildCheckboxTableData(reportData["respondingUnits"])
+        checkbox_table = self.__build_table(checkbox_table_data, col_widths=[100, 50, 100])
+
+        self.__reportStory.append(checkbox_table)
+
+        try:
+            self.__document.build(self.__reportStory)
+        except FileNotFoundError:
+            self.__document.filename = f"../{fileName}"
+            self.__document.build(self.__reportStory)
+
+    def __createHeader(self, reportHeader: dict):
+        header = (
+            f"<b>Bericht-Nr.:</b> {reportHeader.get('reportNumber', '')}<br/>"
+            f"<b>Alarm-Kategorie:</b> {reportHeader.get('alarmCategory', '')}<br/>"
+            f"<b>Alarm-Bereich:</b> {reportHeader.get('alarmArea', '')}<br/>"
+            f"<b>Schadensereignis:</b> {reportHeader.get('alarmEvent', '')}<br/>"
+            f"<b>Dauer:</b> {reportHeader.get('duration', '')}<br/>"
         )
-        story.append(incident_table)
+        self.__reportStory.append(Paragraph(header, self.__styles["Normal"]))
+        self.__reportStory.append(Spacer(1, 12))
 
-        # --- Seite 2: Checkbox-Tabelle für Einsatzkräfte ---
-        story.append(PageBreak())
-        story.append(Paragraph("Einsatzkräfte", styles["Heading2"]))
-        story.append(Spacer(1, 12))
-
-        checkbox_table_data = EinsatzberichtPDFGenerator._build_checkbox_table_data(checkbox_data)
-        checkbox_table = EinsatzberichtPDFGenerator._build_table(
-            checkbox_table_data,
-            col_widths=[100, 50, 100],
-            style_cmds=[
-                ("BACKGROUND", (0, 0), (-1, 0), colors.lightgrey),
-                ("TEXTCOLOR", (0, 0), (-1, 0), colors.black),
-                ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
-                ("ALIGN", (0, 0), (-1, -1), "LEFT"),
-                ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-                ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),
-                ("LEFTPADDING", (0, 0), (-1, -1), 5),
-                ("RIGHTPADDING", (0, 0), (-1, -1), 5),
-                ("TOPPADDING", (0, 0), (-1, -1), 3),
-                ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
-            ]
-        )
-        story.append(checkbox_table)
-
-        # PDF erstellen
-        doc.build(story)
-        print(f"PDF wurde erfolgreich unter {pdf_path} gespeichert!")
-
-    @staticmethod
-    def _build_table(table_data, col_widths, style_cmds):
+    def __build_table(self, table_data, col_widths):
         """
         Hilfsfunktion zur Erstellung einer Tabelle.
         """
         table = Table(table_data, colWidths=col_widths)
-        table_style = TableStyle(style_cmds)
+        table_style = TableStyle(self.__tableStyle)
         table.setStyle(table_style)
         return table
 
-    @staticmethod
-    def _build_incident_log_table_data(report_data: dict, cell_style: ParagraphStyle):
+    def __buildIncidentLogTableData(self, report_data: dict):
         """
         Baut die Daten für die Incident-Log-Tabelle zusammen.
         Falls der Text des Eintrags mit Strikethrough versehen sein soll, wird
         dafür der StrikeThroughParagraph verwendet.
         """
         table_data = [["Lfd.Nr.", "Zeitpunkt", "Kategorie", "Absender", "Text"]]
-        incident_log = report_data.get("incidentLog", {})
 
         # Sortiere die Einträge numerisch
-        for key in sorted(incident_log.keys(), key=lambda x: int(x)):
-            entry = incident_log[key]
-            time_text = entry.get("time", "").replace("\n", "<br/>")
-            cat_text = entry.get("category", "").replace("\n", "<br/>")
-            sender_text = entry.get("reportSender", "").replace("\n", "<br/>")
-            rep_text = entry.get("reportText", "").replace("\n", "<br/>")
+        for key in sorted(report_data.keys(), key=lambda x: int(x)):
+            entry = report_data[key]
+            dateTimeText = entry.get("time", "").replace("\n", "<br/>")
+            categoryText = entry.get("category", "").replace("\n", "<br/>")
+            senderText = entry.get("reportSender", "").replace("\n", "<br/>")
+            reportText = entry.get("reportText", "").replace("\n", "<br/>")
             # Verwende den StrikeThroughParagraph, wenn "striketrough" True ist
             if entry.get("striketrough", False):
-                text_para = StrikeThroughParagraph(rep_text, cell_style, strike=True)
+                reportTextParagraph = StrikeThroughParagraph(reportText, self.__cellStyle)
             else:
-                text_para = Paragraph(rep_text, cell_style)
+                reportTextParagraph = Paragraph(reportText, self.__cellStyle)
 
             row = [
-                Paragraph(str(key), cell_style),
-                Paragraph(time_text, cell_style),
-                Paragraph(cat_text, cell_style),
-                Paragraph(sender_text, cell_style),
-                text_para
+                Paragraph(str(key), self.__cellStyle),
+                Paragraph(dateTimeText, self.__cellStyle),
+                Paragraph(categoryText, self.__cellStyle),
+                Paragraph(senderText, self.__cellStyle),
+                reportTextParagraph
             ]
             table_data.append(row)
         return table_data
 
-    @staticmethod
-    def _build_checkbox_table_data(checkbox_data: dict):
+    def __buildCheckboxTableData(self, checkbox_data: dict):
         """
         Baut die Daten für die Checkbox-Tabelle der Einsatzkräfte zusammen.
         Das Format der Checkbox-Daten ist ein Dictionary, in dem der Key
@@ -181,11 +131,11 @@ class EinsatzberichtPDFGenerator:
 if __name__ == "__main__":
     # Incident-Log-Daten für Seite 1
     incident_data = {
-        "reportNumber": "A001",
-        "alarmCategory": "Brand 1",
-        "alarmArea": "Halle B",
-        "alarmEvent": "Brand eines Mülleimers",
-        "duration": "15 min",
+        "header": {"reportNumber": "A001",
+                   "alarmCategory": "Brand 1",
+                   "alarmArea": "Halle B",
+                   "alarmEvent": "Brand eines Mülleimers",
+                   "duration": "15 min", },
         "incidentLog": {
             "1": {
                 "time": "08.02.2025 06:43:00",
@@ -360,32 +310,29 @@ if __name__ == "__main__":
                 "reportText": "Lagemeldung lt. Funk. Hier kann auch ein weiterer längerer Text stehen.",
                 "striketrough": False
             }
-
-
-
+        },
+        "respondingUnits": {
+            "C-Dienst": [True, "08.02.2025 06:45"],
+            "B-Dienst": [False, ""],
+            "A-Dienst": [False, ""],
+            "Angriffstrupp": [True, "08.02.2025 06:45"],
+            "Wassertrupp": [True, "08.02.2025 06:45"],
+            "Schlauchtrupp": [False, ""],
+            "Melder": [False, ""],
+            "Maschinist": [True, "08.02.2025 06:45"],
+            "First Responder": [False, ""],
+            "1/55": [True, "08.02.2025 06:45"],
+            "1/48": [True, "08.02.2025 06:45"],
+            "1/29": [False, ""],
+            "1/83": [False, ""],
+            "1/61": [False, ""],
+            "1/18": [False, ""],
+            "1/10": [False, ""],
+            "Mot-Streife": [False, ""]
         }
     }
 
     # Checkbox-Daten für Seite 2
-    additional_checkbox_data = {
-        "C-Dienst": [True, "08.02.2025 06:45"],
-        "B-Dienst": [False, ""],
-        "A-Dienst": [False, ""],
-        "Angriffstrupp": [True, "08.02.2025 06:45"],
-        "Wassertrupp": [True, "08.02.2025 06:45"],
-        "Schlauchtrupp": [False, ""],
-        "Melder": [False, ""],
-        "Maschinist": [True, "08.02.2025 06:45"],
-        "First Responder": [False, ""],
-        "1/55": [True, "08.02.2025 06:45"],
-        "1/48": [True, "08.02.2025 06:45"],
-        "1/29": [False, ""],
-        "1/83": [False, ""],
-        "1/61": [False, ""],
-        "1/18": [False, ""],
-        "1/10": [False, ""],
-        "Mot-Streife": [False, ""]
-    }
 
     pdf_file_path = "einsatzbericht_mit_checkbox_tabelle.pdf"  # Pfad anpassen
-    EinsatzberichtPDFGenerator.create_pdf(incident_data, additional_checkbox_data, pdf_file_path)
+    IncidentLogReportGenerator().create_pdf(incident_data, pdf_file_path)

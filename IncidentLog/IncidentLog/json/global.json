@@ -1,5 +1,5 @@
 {
-  "categorys": [
+  "categories": [
     "Lagemeldung",
     "Maßnahme",
     "Anforderung",
@@ -25,6 +25,13 @@
     "1/10",
     "Mot-Streife"
   ],
+  "externalUnits": [
+    "Werkfeuerwehr Dillinger",
+    "Freiwillige Feuerwehr Saarlouis",
+    "Freiwillige Feuerwehr Dillingen",
+    "Freiwillige Feuerwehr Nalbach",
+    "Freiwillige Feuerwehr Saarwellingen"
+  ],
   "iconButtons": {
     "save": [
       "icons/save.svg",
@@ -49,6 +56,10 @@
     "close": [
       "icons/close.svg",
       "Schließen"
+    ],
+    "alarmBell": [
+      "icons/alarmBell.svg",
+      "Alarmierte Einheiten"
     ]
   },
   "reportLetter": [
@@ -85,5 +96,12 @@
     "Absender",
     "Kategorie",
     "Text"
-  ]
+  ],
+  "unitsTableHeader": [
+    "Einheit",
+    "Alarmiert",
+    "EST an",
+    "EST ab"
+  ],
+  "incidentLogPath": "W:\\4813-WerkSicherheit\\Zentrale\\Einsatztagbücher\\"
 }

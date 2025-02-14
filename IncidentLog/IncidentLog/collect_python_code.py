@@ -51,4 +51,4 @@ if __name__ == '__main__':
 
     entire_code = collect_files(folder_path)
     print(entire_code)
-    copy_to_clipboard(entire_code)
+    #copy_to_clipboard(entire_code)

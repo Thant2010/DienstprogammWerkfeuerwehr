@@ -1,63 +1,65 @@
-# KI-Generiert - Anpassung fehlt
-
 import json
-import os
+from pathlib import Path
 
 
 class Config:
     """
-    Diese Klasse lädt die globalen Variablen und das Farbthema aus den
-    entsprechenden JSON-Dateien. Dadurch ist der Zugriff zentralisiert
-    und die Dateizugriffe erfolgen mittels Context Manager.
+    Lädt Konfigurationsdaten (globale Variablen und Farbthema) aus JSON-Dateien.
     """
 
     def __init__(self):
-        self.__globalData = {}
-        self.__colorThemeData = {}
+        self._global_data = {}
+        self._color_theme_data = {}
 
-    def load(self):
-        self.__loadGlobalVariables()
-        self.__loadColorTheme()
+    def load(self) -> None:
+        self._load_global_variables()
+        self._load_color_theme()
 
-    def __loadGlobalVariables(self):
-        # Erstelle den absoluten Pfad zur global.json
-        base_path = os.path.dirname(__file__)
-        global_json_path = os.path.join(base_path, "json", "global.json")
+    def _load_json_file(self, path: Path) -> dict:
         try:
-            with open(global_json_path, "r", encoding="utf-8") as file:
-                self.__globalData = json.load(file)
+            with path.open("r", encoding="utf-8") as file:
+                return json.load(file)
+        except FileNotFoundError:
+            raise RuntimeError(f"Datei nicht gefunden: {path}")
+        except json.JSONDecodeError as e:
+            raise RuntimeError(f"Fehler beim Parsen der Datei '{path}': {e}")
         except Exception as e:
-            raise RuntimeError(f"Fehler beim Laden von 'global.json': {e}")
+            raise RuntimeError(f"Fehler beim Laden der Datei '{path}': {e}")
 
-        # Extrahiere die benötigten Schlüssel aus der globalen JSON-Datei
-        self.categorys = self.__globalData.get("categorys", [])
-        self.reportSender = self.__globalData.get("reportSender", [])
-        self.iconButtons = self.__globalData.get("iconButtons", {})
-        self.reportLetter = self.__globalData.get("reportLetter", [])
-        self.alarmCategory = self.__globalData.get("alarmCategory", [])
-        self.logTableHeader = self.__globalData.get("logTableHeader", [])
+    def _load_global_variables(self) -> None:
+        base_path = Path(__file__).parent
+        global_json_path = base_path / "json" / "global.json"
+        self._global_data = self._load_json_file(global_json_path)
 
-    def __loadColorTheme(self):
-        # Erstelle den absoluten Pfad zur colorTheme.json
-        base_path = os.path.dirname(__file__)
-        color_json_path = os.path.join(base_path, "styles", "colorTheme.json")
-        try:
-            with open(color_json_path, "r", encoding="utf-8") as color_file:
-                self.__colorThemeData = json.load(color_file)
-        except Exception as e:
-            raise RuntimeError(f"Fehler beim Laden von 'colorTheme.json': {e}")
-        self.colorTheme = self.__colorThemeData
+        # Benutze 'categories' statt 'categorys', falls möglich.
+        self.categories = self._global_data.get("categories", [])
+        self.reportSender = self._global_data.get("reportSender", [])
+        self.iconButtons = self._global_data.get("iconButtons", {})
+        self.reportLetter = self._global_data.get("reportLetter", [])
+        self.alarmCategory = self._global_data.get("alarmCategory", [])
+        self.logTableHeader = self._global_data.get("logTableHeader", [])
+        self.unitsTableHeader = self._global_data.get("unitsTableHeader", [])
+        self.incidentLogPath = self._global_data.get("incidentLogPath", base_path)
+        self.externalUnits = self._global_data.get("externalUnits", [])
 
+    def _load_color_theme(self) -> None:
+        base_path = Path(__file__).parent
+        color_json_path = base_path / "styles" / "colorTheme.json"
+        self._color_theme_data = self._load_json_file(color_json_path)
+        self.colorTheme = self._color_theme_data
 
 # Erstelle eine Singleton-ähnliche Konfiguration, die beim Import geladen wird.
 config = Config()
 config.load()
 
 # Exportiere die global verwendeten Variablen
-categorys = config.categorys
+categorys = config.categories
 reportSender = config.reportSender
 iconButtons = config.iconButtons
 reportLetter = config.reportLetter
 alarmCategory = config.alarmCategory
 logTableHeader = config.logTableHeader
 colorTheme = config.colorTheme
+incidentLogPath = config.incidentLogPath
+unitsTableHeader = config.unitsTableHeader
+externalUnits = config.externalUnits

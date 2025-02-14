@@ -27,7 +27,7 @@ class AddEntryWindow(QWidget):
         layout = QGridLayout()
         buttonLayoutRow = AddEntryButtonRow()
 
-        self.__inputTimeRow = InputTimeRow()
+        self.__inputTimeRow = InputTimeRow("Zeitpunkt")
         self.__inputCategoryRow = InputCategoryRow()
         self.__inputReportSender = InputReportSenderRow()
         self.__inputReportTextRow = InputReportTextRow()
@@ -53,8 +53,8 @@ class AddEntryWindow(QWidget):
         reportText = self.__inputReportTextRow.getValue()
         newEntry = {
             "time": time,
-            "category": category,
             "reportSender": reportSender,
+            "category": category,
             "reportText": reportText
         }
 
@@ -62,7 +62,7 @@ class AddEntryWindow(QWidget):
             if value is None:
                 return
 
-        signalManager.on_data_is_valid.emit(newEntry)
+        signalManager.on_log_data_is_valid.emit(newEntry)
         signalManager.on_set_default_values.emit()
 
 

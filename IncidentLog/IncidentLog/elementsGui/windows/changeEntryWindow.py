@@ -31,7 +31,7 @@ class ChangeEntryWindow(QWidget):
         titleLabel = OutlineTitleLabel("Nachtrag einfügen")
         buttonRow = ChangeEntryButtonRow()
 
-        self.__inputTime = InputTimeRow(buttonIsVisible=False)
+        self.__inputTime = InputTimeRow(caption="Zeit:", buttonIsVisible=False)
         self.__inputCategory = InputCategoryRow()
         self.__inputReportSender = InputReportSenderRow()
         self.__inputReportTextRow = InputReportTextRow()

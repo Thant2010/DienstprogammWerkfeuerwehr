@@ -1,5 +1,4 @@
-import getpass
-from datetime import datetime
+from utilityClasses.getTimeStamp import GetTimeStamp
 
 
 def writeErrorToLogFile(error: str) -> None:
@@ -9,7 +8,7 @@ def writeErrorToLogFile(error: str) -> None:
     """
 
     logFile = open("log.txt", "a")
-    logFile.write(f"--> {datetime.now().strftime('%d.%m.%Y %H:%M')}"
-                  f"\n--> Benutzer: {getpass.getuser()}\n--> {error}\n\n")
+    logFile.write(f"--> {GetTimeStamp.getTimeStamp()}"
+                  f"\n--> {error}\n\n")
     logFile.close()
 

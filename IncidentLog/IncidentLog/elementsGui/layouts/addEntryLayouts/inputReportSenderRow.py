@@ -11,7 +11,7 @@ class InputReportSenderRow(QHBoxLayout):
         super().__init__()
 
         caption = CaptionLabel("Absender")
-        self.__reportSenderComboBox = CustomInputComboBox("Absender", reportSender, False)
+        self.__reportSenderComboBox = CustomInputComboBox(comboList=reportSender, readOnly=False)
         self.__reportSenderComboBox.setToolTip("Eintrag wählen oder Editiern")
 
         self.addWidget(caption)

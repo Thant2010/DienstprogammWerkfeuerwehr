@@ -1,66 +1,39 @@
-from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QTableWidget, QFrame, QHeaderView, QSizePolicy, QAbstractItemView, QMessageBox
+from PyQt6.QtWidgets import QHeaderView, QMessageBox
 
-from elementsGui.tableWidget.customTableRow import CustomTableRow
+from elementsGui.tableWidget.IncidentLogTableRow import IncidentLogTableRow
+from elementsGui.tableWidget.customTableWidget import CustomTableWidget
 from elementsGui.tableWidget.customTableWidgetItem import CustomTableWidgetItem
 from globals import logTableHeader
 from utilityClasses.signalManager import signalManager
 from utilityClasses.customMessageBox import CustomMessageBox
 
 
-class IncidentLogTableWidget(QTableWidget):
-    maxHeigt = 500
+class IncidentLogTableWidget(CustomTableWidget):
+    MAX_HEIGHT = 500
 
     def __init__(self):
-        super().__init__()
-        signalManager.on_data_is_valid.connect(self.__addNewEntryRow)
+        super().__init__(headerList=logTableHeader)
+        signalManager.on_log_data_is_valid.connect(self.__addNewEntryRow)
         signalManager.on_change_entry_click.connect(self.__getRowValue)
         signalManager.on_insert_changes.connect(self.__insertChanges)
         signalManager.on_strike_out_row_click.connect(self.__checkRowStrike)
-
-        self.__currentSortOrder = Qt.SortOrder.AscendingOrder
-
-        self.setProperty("fontsize", "small")
-        self.setCornerButtonEnabled(False)
-        self.setFrameShape(QFrame.Shape.Box)
-        self.setFrameShadow(QFrame.Shadow.Sunken)
-        self.setWordWrap(True)
-        self.setColumnCount(len(logTableHeader))
-        self.setHorizontalHeaderLabels(logTableHeader)
-        self.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred))
-        self.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
-
-        self.verticalHeader().setVisible(False)
-        self.horizontalHeader().sectionDoubleClicked.connect(self.__onHeaderClicked)
 
         self.itemDoubleClicked.connect(self.__getRowValue)
 
         self.__setColumnWidth()
         self.__updateHeight()
 
-    def __sortTable(self, columnToSort):
-        self.sortItems(columnToSort, self.__currentSortOrder)
-
-    def __onHeaderClicked(self, columnToSort):
-
-        if self.__currentSortOrder == Qt.SortOrder.AscendingOrder:
-            self.__currentSortOrder = Qt.SortOrder.DescendingOrder
-            self.__sortTable(columnToSort)
-        else:
-            self.__currentSortOrder = Qt.SortOrder.AscendingOrder
-            self.__sortTable(columnToSort)
-
     def __setColumnWidth(self):
-        self.setColumnWidth(0, 60)
-        self.setColumnWidth(1, 140)
-        self.setColumnWidth(2, 110)
-        self.setColumnWidth(3, 125)
+        self.setColumnWidth(0, 50)
+        self.setColumnWidth(1, 80)
+        self.setColumnWidth(2, 100)
+        self.setColumnWidth(3, 100)
 
         self.horizontalHeader().setSectionResizeMode(4, QHeaderView.ResizeMode.Stretch)
 
     def __addNewEntryRow(self, newEntryDict: dict):
         self.insertRow(self.rowCount())
-        newEntryRow = CustomTableRow(self.rowCount(), newEntryDict)
+        newEntryRow = IncidentLogTableRow(self.rowCount(), newEntryDict)
         newEntryRow.getRowItems(self)
         self.resizeRowsToContents()
         self.__updateHeight()
@@ -68,19 +41,18 @@ class IncidentLogTableWidget(QTableWidget):
     def __updateHeight(self):
         totalRowHeight = sum(self.rowHeight(row) for row in range(self.rowCount()))
         totalHeight = self.horizontalHeader().height() + totalRowHeight + 2
-        newHeight = min(totalHeight, self.maxHeigt)
+        newHeight = min(totalHeight, self.MAX_HEIGHT)
         self.setMinimumHeight(newHeight)
 
     def __getRowValue(self):
         if self.currentRow() >= 0:
+            item: CustomTableWidgetItem
             rowdata = dict()
             selectedRow = self.currentRow()
-            for column in range(self.columnCount()):
-                item: CustomTableWidgetItem = self.item(selectedRow, column)
-                if item:
-                    print(self.__checkStrikeOut(item))
-                    key, value = item.getItemValue()
-                    rowdata[key] = value
+            items = [self.item(selectedRow, column) for column in range(self.columnCount())]
+            for item in items:
+                key, value = item.getItemValue()
+                rowdata[key] = value
 
             signalManager.on_get_row_data.emit(rowdata)
 

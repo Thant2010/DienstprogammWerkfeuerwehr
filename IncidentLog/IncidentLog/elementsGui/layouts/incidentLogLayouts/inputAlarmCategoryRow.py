@@ -13,7 +13,7 @@ class InputAlarmCategoryRow(QHBoxLayout):
         super().__init__()
         caption = CaptionLabel("Einsatzart")
 
-        self.__comboAlarmCategory = CustomInputComboBox("Einsatzart", alarmCategory, True)
+        self.__comboAlarmCategory = CustomInputComboBox(comboList=alarmCategory, readOnly=True)
         self.__comboAlarmCategory.setMinimumWidth(280)
 
         self.addWidget(caption)

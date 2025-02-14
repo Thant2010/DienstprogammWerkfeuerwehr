@@ -1,6 +1,6 @@
 QTableWidget {
-    background-color: rgba(200, 200, 200, 30%);
-    border: 1px solid rgb(150, 150, 150);
+    background-color: rgba(200, 200, 200, 0%);
+    
     alternate-background-color: #e0e0e0;
 }
 
@@ -25,13 +25,16 @@ QTableWidget::item:selected {
 
 QTableWidget::item:hover{
     background-color: $primaryColor;
-    color: black;
+    color: #000;
+    border: 0px solid #cccccc;
+    font-weight: normal;
+    border-radius: 0px;
 
 }
 
 QHeaderView::section {
     background-color: $primaryColor;
-    border: 1px solid #000;
+    border: 1px solid rgb(50,50,50);;
 
     font-weight: bold;
 }

@@ -10,7 +10,7 @@ class InputCategoryRow(QHBoxLayout):
     def __init__(self):
         super().__init__()
         caption = CaptionLabel("Kategorie")
-        self.__categoryComboBox = CustomInputComboBox("Kategorie", categorys, True)
+        self.__categoryComboBox = CustomInputComboBox(comboList=categorys, readOnly=True)
 
         self.addWidget(caption)
         self.addWidget(self.__categoryComboBox)

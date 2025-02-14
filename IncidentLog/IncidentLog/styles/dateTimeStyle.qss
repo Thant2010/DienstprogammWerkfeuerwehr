@@ -1,9 +1,19 @@
-QDateTimeEdit {
+QDateTimeEdit:enabled {
     font-size: 16pt;
     background-color: rgb(200, 200, 200);
     border: 1px solid black;
     border-radius: 2px;
 }
+
+QDateTimeEdit:disabled {
+        font-size: 16pt;
+    background-color: rgb(200, 200, 200);
+    border: 1px solid black;
+    border-radius: 2px;
+    color: rgb(200, 200, 200);
+
+}
+
 
 QDateTimeEdit::drop-down {
     background-color: $primaryColor;

@@ -1,17 +1,3 @@
-LfdNr	Zeitpunkt	Absender	Kategorie	Text
-
-
-
-
-
-
-
-
-						Kategorien:	Maßnahme
-							Lagemeldung
-							Nachforderung
-							Einheiten
-							Ereignis
 
 https://icon-icons.com/pack/Interface-Iconset/788
 https://icon-icons.com/pack/Mobile-Basic-Vol.-1/1993

@@ -24,7 +24,6 @@ def loadMultipleStylesheets():
             file_path = os.path.join("styles", filename)
             with open(file_path, "r") as styleFile:
                 combinedStylesheet += styleFile.read() + "\n"
-                styleFile.close()
 
     template = Template(combinedStylesheet)
     finalStylesheet = template.safe_substitute(colorTheme)

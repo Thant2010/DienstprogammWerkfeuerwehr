@@ -15,7 +15,7 @@ class InputReportNumberRow(QHBoxLayout):
         super().__init__()
         caption = CaptionLabel("Bericht")
         caption.setFixedWidth(150)
-        self.__comboReportLetter = CustomInputComboBox("Bericht", reportLetter, True)
+        self.__comboReportLetter = CustomInputComboBox(comboList=reportLetter, readOnly=True)
         self.__comboReportLetter.setFixedSize(80, 30)
         self.__inputReportNumber = CustomLineEdit()
         self.__inputReportNumber.setFixedSize(60, 30)

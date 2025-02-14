@@ -8,12 +8,11 @@ from utilityClasses.customMessageBox import CustomMessageBox
 
 class CustomInputComboBox(QComboBox):
 
-    def __init__(self, name: str, comboList: list, readOnly: bool):
+    def __init__(self, comboList: list, readOnly: bool):
         super().__init__()
         signalManager.on_set_default_values.connect(self.__setDefault)
 
 
-        self.setObjectName(name)
         self.setMinimumSize(200, 30)
         self.setProperty("selectable", True)
         self.setEditable(True)

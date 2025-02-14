@@ -8,12 +8,13 @@ from elementsGui.labels.captionLabel import CaptionLabel
 
 class InputTimeRow(QHBoxLayout):
 
-    def __init__(self, buttonIsVisible: bool = True):
+    def __init__(self, caption,  buttonIsVisible: bool = True, clearTimeWidget: bool = False):
         super().__init__()
-        __caption = CaptionLabel("Zeitpunkt")
+        __caption = CaptionLabel(caption)
         self.__clockButton = ClockButton()
         self.__clockButton.setVisible(buttonIsVisible)
-        self.__inputTimeWidget = InputTimeWidget()
+        self.__clockButton.clicked.connect(self.__setCurrentTime)
+        self.__inputTimeWidget = InputTimeWidget(clearTimeWidget)
 
         self.addWidget(__caption)
         self.addWidget(self.__clockButton)
@@ -28,3 +29,6 @@ class InputTimeRow(QHBoxLayout):
 
     def setDisabled(self):
         self.__inputTimeWidget.setReadOnly(True)
+
+    def __setCurrentTime(self):
+        self.__inputTimeWidget.setCurrentDateTime()

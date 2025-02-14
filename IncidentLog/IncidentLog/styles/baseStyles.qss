@@ -15,7 +15,7 @@ QWidget[teststyle="test"] {
 }
 
 QWidget[fontsize="small"] {
-    font-size: 12pt;
+    font-size: 10pt;
 }
 
 QWidget[fontsize="medium"] {

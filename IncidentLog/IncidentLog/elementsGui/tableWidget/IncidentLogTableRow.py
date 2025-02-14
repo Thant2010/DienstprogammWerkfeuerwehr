@@ -3,7 +3,7 @@ from PyQt6.QtWidgets import QTableWidget
 from elementsGui.tableWidget.customTableWidgetItem import CustomTableWidgetItem
 
 
-class CustomTableRow:
+class IncidentLogTableRow:
 
     def __init__(self, rowId: int, newEntryDict: dict):
         self.__rowIdItem = CustomTableWidgetItem(str(rowId), "sequenzNumber")
@@ -19,5 +19,5 @@ class CustomTableRow:
 
     def getRowItems(self, tableWidget: QTableWidget):
         row = tableWidget.rowCount() - 1
-        for i in range(len(self.__rowItems)):
-            tableWidget.setItem(row, i, self.__rowItems[i])
+        for i, item in enumerate(self.__rowItems):
+            tableWidget.setItem(row, i, item)
