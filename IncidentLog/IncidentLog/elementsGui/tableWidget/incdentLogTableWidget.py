@@ -9,16 +9,16 @@ from utilityClasses.customMessageBox import CustomMessageBox
 
 
 class IncidentLogTableWidget(CustomTableWidget):
+
     MAX_HEIGHT = 500
 
     def __init__(self):
         super().__init__(headerList=logTableHeader)
         signalManager.on_log_data_is_valid.connect(self.__addNewEntryRow)
-        signalManager.on_change_entry_click.connect(self.__getRowValue)
+        signalManager.on_change_entry_click.connect(self._getRowValue)
         signalManager.on_insert_changes.connect(self.__insertChanges)
         signalManager.on_strike_out_row_click.connect(self.__checkRowStrike)
 
-        self.itemDoubleClicked.connect(self.__getRowValue)
 
         self.__setColumnWidth()
         self.__updateHeight()
@@ -44,17 +44,7 @@ class IncidentLogTableWidget(CustomTableWidget):
         newHeight = min(totalHeight, self.MAX_HEIGHT)
         self.setMinimumHeight(newHeight)
 
-    def __getRowValue(self):
-        if self.currentRow() >= 0:
-            item: CustomTableWidgetItem
-            rowdata = dict()
-            selectedRow = self.currentRow()
-            items = [self.item(selectedRow, column) for column in range(self.columnCount())]
-            for item in items:
-                key, value = item.getItemValue()
-                rowdata[key] = value
 
-            signalManager.on_get_row_data.emit(rowdata)
 
     def __rowStrikeOut(self):
 
@@ -85,3 +75,6 @@ class IncidentLogTableWidget(CustomTableWidget):
         item: CustomTableWidgetItem = self.item(rowId, 4)
         item.setValue(changedValue['reportText'])
         self.resizeRowsToContents()
+
+    def sendRowData(self, rowData: dict):
+        signalManager.on_get_row_data.emit(rowData)

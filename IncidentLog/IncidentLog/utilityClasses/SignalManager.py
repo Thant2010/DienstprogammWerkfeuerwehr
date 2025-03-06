@@ -10,6 +10,7 @@ class SignalManager(QObject):
           on_log_data_is_valid:             Signal, das ein dict (Log Eintragsdaten) sendet, wenn Daten validiert wurden.
           on_unit_data_is_valid:        Signal, das ein dict (Einheiten) sendet, wenn Daten validiert wurden.
           on_get_row_data:              Signal, das ein dict mit Zeilendaten überträgt.
+          on_get_unit_data:             Signal, das ein dict mit Zeilendaten für Einheiten überträgt.
           on_save_entry_click:          Signal, wenn ein neuer Eintrag gespeichert werden soll.
           on_add_unit_click:            Signal, wenn Einsatzkräfte hinzugefügt werden sollen.
           on_save_changes_click:        Signal, wenn Änderungen gespeichert werden sollen.
@@ -27,9 +28,14 @@ class SignalManager(QObject):
 
     on_log_data_is_valid = pyqtSignal(dict)
     on_unit_data_is_valid = pyqtSignal(dict)
+
     on_get_row_data = pyqtSignal(dict)
+    on_get_unit_data = pyqtSignal(dict, int)
+
     on_save_entry_click = pyqtSignal()
     on_save_changes_click = pyqtSignal()
+    on_save_unit_changes_click = pyqtSignal()
+
     on_add_new_entry_click = pyqtSignal()
     on_add_unit_click = pyqtSignal()
     on_change_entry_click = pyqtSignal()
@@ -37,6 +43,7 @@ class SignalManager(QObject):
 
     on_get_change = pyqtSignal(str, str)
     on_insert_changes = pyqtSignal(dict)
+    on_insert_unit_changes = pyqtSignal(int, dict)
 
     on_new_entry_window_close = pyqtSignal()
     on_change_entry_window_close = pyqtSignal()

@@ -41,18 +41,18 @@ class IncidentLogReportGenerator:
 
         self.__createHeader(reportData["header"])
 
-        # Erstellung der Incident-Log-Tabelle
+        # Erstellung des Einsatztagebuch
         incident_table_data = self.__buildIncidentLogTableData(reportData["incidentLog"])
         incident_table = self.__build_table(incident_table_data, col_widths=[50, 110, 100, 100, 200])
         self.__reportStory.append(incident_table)
 
         # Eingesetzte Einheiten
         self.__reportStory.append(PageBreak())
-        self.__reportStory.append(Paragraph("Einsatzkräfte", self.__styles["Title"]))
+        self.__reportStory.append(Paragraph("Alarmierte Einsatzkräfte", self.__styles["Title"]))
         self.__reportStory.append(Spacer(1, 12))
 
         checkbox_table_data = self.__buildCheckboxTableData(reportData["respondingUnits"])
-        checkbox_table = self.__build_table(checkbox_table_data, col_widths=[100, 50, 100])
+        checkbox_table = self.__build_table(checkbox_table_data, col_widths=[150, 100, 100, 100, 50])
 
         self.__reportStory.append(checkbox_table)
 
@@ -113,17 +113,26 @@ class IncidentLogReportGenerator:
             table_data.append(row)
         return table_data
 
-    def __buildCheckboxTableData(self, checkbox_data: dict):
+    def __buildCheckboxTableData(self, unit_data: dict):
         """
-        Baut die Daten für die Checkbox-Tabelle der Einsatzkräfte zusammen.
-        Das Format der Checkbox-Daten ist ein Dictionary, in dem der Key
-        die Einsatzkraft repräsentiert und der Value ein Array mit [status, alarmiert] ist.
+        Baut die Daten für die Alarmierten Einheiten-Tabelle zusammen.
         """
-        table_data = [["Einsatzkraft", "Status", "Alarmiert"]]
-        for kraft, values in checkbox_data.items():
-            status = values[0]
-            checkbox_symbol = "X" if status else " "
-            table_data.append([kraft, checkbox_symbol, values[1]])
+        table_data = [["Einsatzkraft", "Alarmiert", "EST an", "EST ab", "Anzahl"]]
+        for key in sorted(unit_data.keys()):
+            entry = unit_data[key]
+            unit = entry.get("unit", "")
+            alarmTime = entry.get("alarmTime", "")
+            arivalSceneTime = entry.get("arivalSceneTime", "")
+            departureSceneTime = entry.get("departureSceneTime", "")
+            unitCount = entry.get("unitCount", "-")
+
+            row = [Paragraph(unit, self.__cellStyle),
+                Paragraph(alarmTime, self.__cellStyle),
+                Paragraph(arivalSceneTime, self.__cellStyle),
+                Paragraph(departureSceneTime, self.__cellStyle),
+                Paragraph(unitCount, self.__cellStyle)]
+            table_data.append(row)
+
         return table_data
 
 
@@ -312,23 +321,20 @@ if __name__ == "__main__":
             }
         },
         "respondingUnits": {
-            "C-Dienst": [True, "08.02.2025 06:45"],
-            "B-Dienst": [False, ""],
-            "A-Dienst": [False, ""],
-            "Angriffstrupp": [True, "08.02.2025 06:45"],
-            "Wassertrupp": [True, "08.02.2025 06:45"],
-            "Schlauchtrupp": [False, ""],
-            "Melder": [False, ""],
-            "Maschinist": [True, "08.02.2025 06:45"],
-            "First Responder": [False, ""],
-            "1/55": [True, "08.02.2025 06:45"],
-            "1/48": [True, "08.02.2025 06:45"],
-            "1/29": [False, ""],
-            "1/83": [False, ""],
-            "1/61": [False, ""],
-            "1/18": [False, ""],
-            "1/10": [False, ""],
-            "Mot-Streife": [False, ""]
+            "1": {
+                "unit": "Feuerwehr Saarlouis",
+                "alarmTime": "20.02.2024 01:25",
+                "arivalSceneTime": "20.02.2024 01:35",
+                "departureSceneTime": "20.02.2024 05:25",
+                "unitCount": "17"
+            },
+            "2": {
+                "unit": "C-Dienst",
+                "alarmTime": "20.02.2024 01:25",
+                "arivalSceneTime": "20.02.2024 01:35",
+                "departureSceneTime": "20.02.2024 05:25",
+                "unitCount": "1"
+            }
         }
     }
 

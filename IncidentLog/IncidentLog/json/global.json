@@ -101,7 +101,8 @@
     "Einheit",
     "Alarmiert",
     "EST an",
-    "EST ab"
+    "EST ab",
+    "Anzahl"
   ],
   "incidentLogPath": "W:\\4813-WerkSicherheit\\Zentrale\\Einsatztagbücher\\"
 }

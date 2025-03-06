@@ -7,8 +7,7 @@ def writeErrorToLogFile(error: str) -> None:
     :param error: Error as String
     """
 
-    logFile = open("log.txt", "a")
+    logFile = open("log.log", "a")
     logFile.write(f"--> {GetTimeStamp.getTimeStamp()}"
                   f"\n--> {error}\n\n")
     logFile.close()
-

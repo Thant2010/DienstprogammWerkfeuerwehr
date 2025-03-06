@@ -10,6 +10,7 @@ from elementsGui.labels.outlineTitleLabel import OutlineTitleLabel
 from elementsGui.windows.addEntryWindow import AddEntryWindow
 from elementsGui.windows.addRespondingUnitsWindow import AddRespondingUnitWindow
 from elementsGui.windows.changeEntryWindow import ChangeEntryWindow
+from elementsGui.windows.changeRespontingUnitsWindow import ChangeRespondingUnitsWindow
 from utilityClasses.layoutSpacer import LayoutSpacer
 from utilityClasses.signalManager import signalManager
 
@@ -20,9 +21,10 @@ class IncidentLogWindow(QWidget):
         super().__init__()
         self.setWindowTitle("Einsatztagebuch")
         self.setWindowIcon(QIcon("icons/windowIcons/incidentLog.ico"))
-        self.setMinimumSize(1250, 750)
+        self.setMinimumSize(1330, 750)
 
         signalManager.on_get_row_data.connect(self.__openChangeEntryWindow)
+        signalManager.on_get_unit_data.connect(self.__openChangeUnitWindow)
         signalManager.on_add_new_entry_click.connect(self.__openAddEntryWindow)
         signalManager.on_add_unit_click.connect(self.__openAddUnitsWindow)
         signalManager.on_incident_log_window_close.connect(self.close)
@@ -58,3 +60,7 @@ class IncidentLogWindow(QWidget):
     def __openChangeEntryWindow(self, currentRowData: dict):
 
         self.changeEntryWindow = ChangeEntryWindow(currentRowData)
+
+    def __openChangeUnitWindow(self, unitData: dict, selectedRow: int):
+
+        self.__changeUnitWindow = ChangeRespondingUnitsWindow(unitData, selectedRow)

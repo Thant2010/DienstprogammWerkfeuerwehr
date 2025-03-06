@@ -25,7 +25,10 @@ class InputTimeRow(QHBoxLayout):
         return self.__inputTimeWidget.getCurrentValue()
 
     def setTimeValue(self, timeString: str):
-        self.__inputTimeWidget.setDateTime(QDateTime.fromString(timeString, "dd.MM.yyyy HH:mm"))
+        if timeString != "":
+            self.__inputTimeWidget.setDisabled(False)
+            self.__inputTimeWidget.setDateTime(QDateTime.fromString(timeString, "dd.MM.yyyy HH:mm"))
+
 
     def setDisabled(self):
         self.__inputTimeWidget.setReadOnly(True)

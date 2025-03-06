@@ -50,5 +50,7 @@ if __name__ == '__main__':
     folder_path = "D:\\Python\\Projekte\\AAO\\Neue AAO\\GitHub\\NeuesDienstprogramm\\IncidentLog\\IncidentLog"
 
     entire_code = collect_files(folder_path)
-    print(entire_code)
+    with open("code.txt", "w", encoding="utf-8") as file:
+        file.write(entire_code)
+#    print(entire_code)
     #copy_to_clipboard(entire_code)

@@ -1,5 +1,9 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QTableWidget, QFrame, QSizePolicy, QAbstractItemView
+from abc import abstractmethod
+
+from elementsGui.tableWidget.customTableWidgetItem import CustomTableWidgetItem
+from utilityClasses.signalManager import signalManager
 
 
 class CustomTableWidget(QTableWidget):
@@ -25,6 +29,8 @@ class CustomTableWidget(QTableWidget):
         self.verticalHeader().setVisible(False)
         self.horizontalHeader().sectionDoubleClicked.connect(self.__onHeaderClicked)
 
+        self.itemDoubleClicked.connect(self._getRowValue)
+
     def __sortTable(self, columnToSort):
         self.sortItems(columnToSort, self.__currentSortOrder)
 
@@ -37,3 +43,18 @@ class CustomTableWidget(QTableWidget):
             self.__currentSortOrder = Qt.SortOrder.AscendingOrder
             self.__sortTable(columnToSort)
 
+    def _getRowValue(self):
+        if self.currentRow() >= 0:
+            item: CustomTableWidgetItem
+            rowdata = dict()
+            selectedRow = self.currentRow()
+            items = [self.item(selectedRow, column) for column in range(self.columnCount())]
+            for item in items:
+                key, value = item.getItemValue()
+                rowdata[key] = value
+
+            self.sendRowData(rowdata, selectedRow)
+
+    @abstractmethod
+    def sendRowData(self, rowData: dict, selectedRow: int):
+        pass

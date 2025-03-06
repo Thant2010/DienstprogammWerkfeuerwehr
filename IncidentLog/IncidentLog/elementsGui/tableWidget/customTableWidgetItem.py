@@ -29,3 +29,6 @@ class CustomTableWidgetItem(QTableWidgetItem):
     def setValue(self, value: str):
         self.setText(value)
 
+    def checkKey(self, key: str) -> bool:
+        return key == self.__dictKey
+
