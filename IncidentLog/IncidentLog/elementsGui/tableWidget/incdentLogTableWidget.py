@@ -76,5 +76,5 @@ class IncidentLogTableWidget(CustomTableWidget):
         item.setValue(changedValue['reportText'])
         self.resizeRowsToContents()
 
-    def sendRowData(self, rowData: dict):
+    def sendRowData(self, rowData: dict, selectedRow: int):
         signalManager.on_get_row_data.emit(rowData)

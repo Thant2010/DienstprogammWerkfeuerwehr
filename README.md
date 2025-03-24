@@ -77,7 +77,7 @@ Install via pip:
 Clone the Repository:
 
   ```bash
-  git clone https://github.com/YOUR_USERNAME/NeuesDienstprogramm.git
+  git clone https://github.com/Thant2010/NeuesDienstprogramm.git
   cd NeuesDienstprogramm/IncidentLog
   ```
 Install Dependencies:
